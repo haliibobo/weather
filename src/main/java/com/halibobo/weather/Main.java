@@ -1,17 +1,17 @@
 package com.halibobo.weather;
 
 
+import com.halibobo.weather.config.KafkaConf;
 import com.halibobo.weather.function.WeatherFilterHander;
 import com.halibobo.weather.function.WeatherMapHander;
+import com.halibobo.weather.function.WeatherMysqlSinkHander;
 import com.halibobo.weather.function.WeatherReduceHander;
-import com.halibobo.weather.function.WeatherSinkHander;
 import com.halibobo.weather.pojo.Weather;
+import java.util.Properties;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-
-import java.util.Properties;
 
 public class Main {
 
@@ -39,7 +39,7 @@ public class Main {
                 .map(new WeatherMapHander()).name("weather-map")
                 .filter(new WeatherFilterHander()).name("weather-filter")
                 .keyBy(Weather::getPyName).reduce(new WeatherReduceHander())
-                .addSink(new WeatherSinkHander()).name("weather-sink");
+                .addSink(new WeatherMysqlSinkHander()).name("weather-sink-mysql");
 
         //dataStream.print();
 

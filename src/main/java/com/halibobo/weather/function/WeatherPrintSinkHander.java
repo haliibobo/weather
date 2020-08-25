@@ -15,9 +15,9 @@ import org.slf4j.LoggerFactory;
  * @date 2020-08-24 15:24
  * @description describe what this class do
  */
-public class WeatherSinkHander extends RichSinkFunction<Weather> {
+public class WeatherPrintSinkHander extends RichSinkFunction<Weather> {
 
-    private static final Logger logger = LoggerFactory.getLogger(WeatherSinkHander.class);
+    private static final Logger logger = LoggerFactory.getLogger(WeatherPrintSinkHander.class);
 
 
     @Override
